@@ -1,0 +1,93 @@
+!!!
+%html
+  %head
+    %title= "#{title} - The Amazing Blog"
+    %link{:rel => "stylesheet", :type => "text/css", :href => "/stylesheets/reset-fonts-grids.css"}
+    %link{:rel => "stylesheet", :type => "text/css", :href => "/stylesheets/base.css"}
+    %link{:rel => "stylesheet", :type => "text/css", :href => "/stylesheets/style.css"}
+  %body
+
+    #doc2.yui-t4
+      
+      #header
+        %h1 The Amazing Blog
+        %h2 Rando's Random Ramblings
+
+      #body
+        #yui-main
+          #content.yui-b
+            .post
+              .meta 
+                .published
+                  Published April 15, 2009 
+                .updated
+                  Updated April 15, 2009
+
+              %h1 First blog post
+
+              :markdown
+
+                Rationale
+                ---------
+
+                It is imperative that SSBE, at the most fundamental level, can do four things:
+
+                1. Record collected observations
+                2. Analyze & report on those observations
+                3. Send a notification when an observation is outside some threshold.
+                4. Prevent users from seeing observations they are not permitted to see.
+
+                Unfortunelty, SSBE v5 has strayed from these core ideals, and as such, has developed the exact same problems as the system it was designed to replace. Yes, it can handle higher load, but development time has increased, and it is complicated to understand, and difficult to maintain.
+
+                Examples of features that slow down the core system, and make it harder to maintain:
+
+                 * Branding/Themeing
+                 * Fine-Grained Permissions
+                 * Permission Inheritance
+                 * Escalation Complexity
+
+                This document will outline proposals for replacing or removing such features, and give alternatives.
+
+                Significant Changes
+                -----------
+
+                 * No more client inheritance. An account belongs to a single client, and has unrestricted access to resources within that client. A few accounts may be admins. An admin may see all resources in the system, and create clients. Additionally, some resources may be accessible only by the account that created them.
+                 * The concept of "Escalations" will no longer exist. A user may set up rules on when action should be taken upon recipt of a datapoint within a certain threshold.
+                   - At first, the available rules will only be able to match any number of metrics and a value above or below a certain point. Additional features may be added as requested by users, such as "above a value for a length of time". 
+                   - When the value crosses that threshold is the only time the notification action will be taken. If the value leaves the threshold, another notification will be sent. At first, notifications will only be an email or a webhook POST to some other app. Additional targets will be added (XMPP, IRC, Basecamp, Parature, etc...), as requested by users.
+                 * Metric types (paths) will still remain pipe-separated free-form strings, but better docs will be provided to agent writers, and they should all follow a consistent format.
+                 * In addition to the other benefits listed, making the system simpler to interact with will make writing a supplementary application much less involved. As we developers write more supplementary apps ourselves, will will develop useful, reusable toolkits that could then be provided as libraries to third parties, or as a starting point for our developers to write apps for our customers. All new development, customer-specific feature requests, or experiments, can and should be implemented as supplementary apps.
+
+            
+      
+        #sidebar.yui-b
+          %h1 About Me
+
+          %p I'm Paul Sadauskas, a Ruby & Web Developer living in senic Boulder, CO.
+          %p I write posts infrequently enough to be annoying, and some of them are vaguely readable.
+
+          %h1 Stalk Me
+
+          %ul
+            %li 
+              %a{:href => "http://twitter.com/TheAmazingRando"}@TheAmazingRando 
+              on Twitter
+
+            %li
+              %a{:href => "irc://freenode.net"}Rando
+              on Freenode IRC
+
+            %li
+              %a{:href => "mailto:psadauskas@gmail.com"}psadauskas@gmail.com
+              on Email
+
+      
+      #footer
+        %p 
+          &copy; 2009 Paul Sadauskas. 
+          Layout based on one by
+          %a{:href => "http://templates.arcsin.se/"}Arcsin
+          and heavily modified my me.
+
+
+

@@ -1,10 +1,12 @@
 require 'rubygems'
 require 'rake'
+require 'lib/restblog'
 
 begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "restblog"
+    gem.version = Restblog::Version
     gem.summary = %Q{TODO}
     gem.email = "psadauskas@gmail.com"
     gem.homepage = "http://github.com/paul/restblog"
@@ -41,12 +43,7 @@ task :default => :test
 
 require 'rake/rdoctask'
 Rake::RDocTask.new do |rdoc|
-  if File.exist?('VERSION.yml')
-    config = YAML.load(File.read('VERSION.yml'))
-    version = "#{config[:major]}.#{config[:minor]}.#{config[:patch]}"
-  else
-    version = ""
-  end
+  version = Restblog::Version
 
   rdoc.rdoc_dir = 'rdoc'
   rdoc.title = "restblog #{version}"
