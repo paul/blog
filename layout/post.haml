@@ -1,0 +1,17 @@
+.post
+  %h1.post-title= post_link(post)
+
+  .meta
+    .published
+      Published on
+      = post.authored_date.strftime("%A, %B %d")
+    .author
+      by
+      = author_link(post.author)
+    .updated
+      Last updated on
+      = post.updated_date.strftime("%A, %B %d")
+
+  .post-content
+    :markdown
+      #{post.data}
